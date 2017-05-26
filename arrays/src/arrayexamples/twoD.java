@@ -1,7 +1,7 @@
 package arrayexamples;
 
 import java.util.Scanner;
-import java.io.*;
+
 
 
 public class twoD {
@@ -18,7 +18,7 @@ public class twoD {
 		for(int j=0;j<3;j++)
 		{
 			
-			Scanner NUM=new Scanner(System.in);
+			Scanner NUM =new Scanner(System.in);
 			
 			
 	 a[i][j] =NUM.nextInt();

@@ -13,42 +13,48 @@ public class ascending {
 		
 		
 		
-		int i;
-		int j=1;
+		
 	
 		
 		
 		
-		for(i=0;i<4;i++)
+		for(int i=0;i<5;i++)
 		
 		{
-		
+		   for (int j=i+1;j<5;j++)
+		   {
 			
 		 if (a[i]>a[j]){ 
 			 
-			 int t=5;
-			a[i]=t;
-			 a[j]=a[i];
-			 t=a[i];
+			 int temp;
+			 temp=a[i];
+			a[i]=a[j];
+			 a[j]=temp;
 			 
-			 System.out.println(t);
-			 
-			 j=i+1;
-		 }
-			
-		 
-		 else
-		 {
-			 System.out.println(a[i]);
-			 
-			 
-			 
-
 		 }
 		 
+		   }
+		   
 		}
+		
+		//for printing the o/p
+		
+		
+	for (int i=0;i<5;i++)
+		{
+        
+		 System.out.println(a[i]);
+				 
+			 
+			 
+		 }
+		
+		
 	}
 }
+			
+		 
+		
 
 
 
