@@ -1,0 +1,118 @@
+oops concepts reduce the repeatability of writing a code
+
+
+packages
+default package java.lang
+java.util-collection interface
+package.class//format
+if different package and same class name defined then you have to import the package
+ex1: package1
+             class1
+             {
+               }
+               
+    package2
+             class1 c=new class1();
+             c.----
+              //here you should import the class1 from the package1
+              //you can use that package only after that
+              //import package1.class1;
+ex2: buy class in a payment package
+     buy class in a coupon package
+     //here you are importing buy class from payment package
+     
+class.method();
+if extended
+class.methodOFotherclass();
+
+     
+//if you import you cannot use methods which are in default mode     
+              
+
+inheritance
+
+acquire the prop of some thing
+write in different classes and call it from other
+ex:login and logout of fb
+parent child relation 
+use extend key word
+
+
+
+
+interface--just like an index
+very useful for the webdriver
+has methods names but not body
+only classes can implement the methods
+dont enter braces also
+development(class) is responsible to implement all methods in banking client(interface)
+dont miss anything
+public can be accessed anywhere
+interfaces are by default public
+method overloading=same method but parameters are different
+method overriding=in interface concept to implement all methods 
+
+
+access modifiers
+public=class+package+subclass+class inherited of other package//less restricted
+protected=class+package+subclass inherited from other of other package
+default=class+package //package level access//not specified anything
+private=only for class       //more " 
+
+
+
+
+
+
+constructor
+just like method
+it doesnt return any value
+name of the constructor should be the same as the class
+constructor doesnt wait for a return//same name as class
+when ever we create an obj in main then it execute/call constructor
+initiate objects, define programs
+2 types-default, and parameterized
+
+
+
+super
+used when 2 same variables
+used in inheritance concept 
+calling other class same variable, same method, same constructor
+
+
+this
+used for the global and local variable
+global variable for all the class
+local variable for only that particular method
+to call global variable call like this.a, this.variablename
+
+
+final
+use for access
+final class -cannot inherit
+final method -cannot override
+final variable- cannot change the value
+
+
+expection handling
+
+try-catch()
+when you want to skip the failure you should use try catch method
+highly used in the transactions
+ex: if the transaction fail, then it should display and code for retry
+1 try can have many catch
+catch blocks should follow try block for sure
+types of exceptions:1. arithmetic /2. out of bound ...
+you can also specify the type of exeption in catch block saying..
+catch(ArithmaticException a){}
+
+finally
+this can be run even if the prog is good or errored
+though if block fails at any catch then it comes to finally
+ex: some times you want to close the browser or delete the cookies 
+there may not be catch when you use finally
+
+
+
+
