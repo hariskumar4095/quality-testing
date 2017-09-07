@@ -1,0 +1,46 @@
+java collection framework
+
+collection of interfaces and classes
+framework-contains classes and interfaces
+ex:arrays del one value
+          insert one value
+programer made easy
+
+
+list collection-sequence
+just as array but different
+may contain duplicate
+add/del any index from list
+contains different APIs 
+
+3 kinds of collections
+
+list--arraylist+linkedlist
+set--hashset, treeset, linkedHashset implement set interface
+hash map
+
+list
+
+
+
+
+set interface
+doesnot allow duplicate value
+there may be no guarentee that the ele are set in seq
+ex:if you added an item in the cart, and again you add the same item in the cart--it save as list
+   but, when you applied for a job in dice, you cannot apply another time because it saves as set
+ 
+ 
+ iterator
+ Iterator it=sn.iterator();
+ 
+ .hasnext
+ tells us is there any any element after this
+ 
+ Map.Entry mp= <Map.Entry>it.next();
+ div the key and ele
+ 
+ difference between hash map and hash set is 
+ security- hashtable is secured. does not allow other prog exe on that at same time
+   
+
