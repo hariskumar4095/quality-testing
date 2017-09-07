@@ -26,6 +26,10 @@ public class driver {
 		WebDriver e=new InternetExplorerDriver();
 		e.get("http://google.com");
 		e.close();
+		
+		//gaecko driver//if you are using new version
+		//System.setProperty("webdriver.gecko.driver","G:\\Selenium\\Firefox driver\\geckodriver.exe");
+		//WebDriver driver = new FirefoxDriver();
 	}
 
 }
