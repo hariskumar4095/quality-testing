@@ -1,0 +1,163 @@
+
+projects details
+
+business req
+
+•	Analyzed Business Requirements Documents to get better understanding of the system both on
+        technical and business perspectives
+•	Used Curam to design Business solutions and Business requirements
+•	Involved in Project Management activities like Project Scoping, Planning, Estimating, Scheduling, Organizing, Directing, Controlling and Drafting remedy procedures
+•	Facilitated requirement gathering sessions with the business team to collect the business standards, security and service level requirements and studied the business process
+•	Created and maintained Business Use cases and System Use cases, Use Case diagrams, Flow Diagrams, Business Flow Diagrams, Activity diagrams and Sequence diagrams throughout the SLC
+•	Worked in the agile environment with SCRUM Process for the product development and frequently changing requirements and features set
+        Worked on Agile/Scrum methodology. 
+    
+dba 
+•	Managed user access. Created and managed new security accounts. 
+•	Backup and restore databases. 
+        Managed indexes, statistics and optimized queries by using execution plan for tuning the database.
+        Created alerts for successful or unsuccessful completion of scheduled jobs. Developed ad-hoc queries for end users.
+        Implemented database and operating system updates on 6 database servers on 72 databases in 3 different environments.
+        Responsible for performance tuning and Optimization of stored procedures using SQL Profiler and Database tuning wizard.
+        Developed Data Migration strategy for the customer to transfer enterprise legacy data to the newly developed ERP application.
+bi
+
+•	Preparing Dashboards using calculations, parameters, calculated fields, groups, sets and hierarchies in Tableau.
+
+•	Provided Full Reporting Life Cycle support using SQL Server Reporting Service
+
+•	Preparing Dashboards using calculations, parameters, calculated fields, groups, sets and hierarchies in Tableau.
+
+        Designed logical and physical database for reporting tool, generating various monthly financial & end user reports and send them to the traders and end users. Also generated reports in different formats such as csv, pdf, rpt & txt etc.
+1 st proj
+
+proj:
+The project involved creating Corporate Data Warehouse and migrating data from the OLTP systems to the Corporate Data Warehouse. SSIS was used as an ETL tool for extracting the Data from various sources running on Oracle, DB2 and MS SQL Server databases.
+
+oracle: This system keeps track of day-to-day bank operations like deposits, withdrawals, demand drafts, different types of loans (mortgage business) for the customers as well as the employees.							 
+
+ssms
+
+•	Developed tables, Views, Stored Procedures and Triggers using SQL Server Management Studio.
+•	Good experience in developing various types of complex reports like reports using cascade parameters, drill down and drill through reports, matrix reports, sub reports, parameterized reports, Ad-Hoc and charts using SQL Server Reporting Services (SSRS) based on requirements
+•	Actively involved in design of a new normalized data store (NDS) based on Data Vault Methodology as well as a DE normalized Data Store (DDS) per Dimensional Model.
+•	Created User Defined Functions, Triggers to store data into appropriate tables as and when data arrives and created indexes to the tables that have least updates to improve the query performance.
+
+
+bi
+•	Provided Full Reporting Life Cycle support using SQL Server Reporting Service
+•	Performed ETL operations on data from multiple input sources and loaded data into SQL Server.
+•	Created reports using SSRS from OLTP and OLAP data sources and deployed on report server
+•	Involved to planning and designing SSAS 2012 Cubes and building attribute relationships for optimal MDX query performance of Hierarchies and Fact Dimensions.
+•	Preparing Dashboards using calculations, parameters, calculated fields, groups, sets and hierarchies in Tableau.
+•	Gather requirements and design of data warehouse and ETL development packages.
+•	Creation of complex procedures to Populate Dimension and Fact level data to retain all Dimensional and member level data to meet the Essbase requirement in SSAS service.
+•	Developed Tabular Reports, Sub Reports, Matrix Reports, Drill down Reports and Charts using SQL Server Reporting Services (SSRS)
+•	Preparing Dashboards using calculations, parameters, calculated fields, groups, sets and hierarchies in Tableau.
+
+
+
+Developed Unit Test Plans for SSIS packages for checking the functionality of each component 
+Scheduled Jobs for executing the stored SSIS packages which were developed to update the database on Daily basis using SQL Server Agent 
+
+
+SHARE POINT
+
+Received MS Sharepoint 2010 application development training covering Visual Studio 2010, Sharepoint Designer 2010
+Developed plans for Sharepoint 2010 rollout by department.
+
+
+
+latest proj
+
+dba
+Provided disaster recovery procedures and policies for backup and recovery of Databases.
+Performance Tuning and optimization in SQL Server 2012 using SQL Profiler and Data Loading.
+Rebuilding Indexes and Tables as part of Performance Tuning Exercise
+Creating and automating the regular Jobs using SQL Server Agent
+Troubleshoot and diagnose customer issues, documenting recreation steps.
+Implemented Database mail and Triggers as per business needs.
+Involved in managing Alerts, Operators and Scheduled Jobs through SQL Server Agent. Used Performance Monitor/Profiler to solve Dead Locks.
+ 
+
+
+
+ssms
+
+
+Upgraded database tables from 2000 to SQL 2005 and SQL 2008, 2005/2008 to 2012 SQL environment. 
+Created complex Stored Procedures for data retrieval. 
+Optimized performance of various SQL scripts, stored procedures and triggers by using embedded UDFs, CTEs and System stored procedures. 
+Created triggers, UDF, views, tables, and generated TSQL script for application.
+Created linked servers to fetch data from Oracle. 
+Created user defined functions in SSRS using VB script.  
+Wrote complex T-SQL queries and Stored Procedures for the reports 
+Assisting in transferring databases, including TempDB, to new servers using TSQL scripts
+Responsible for creating Databases, Tables, Cluster/Non-Cluster Index, Unique/Check Constraints Views
+Provided support to 50 database Servers. Support included Production, QA and Development 
+Successfully created database diagrams and physical models for the project
+Installed SQL server 2008, 2012 on Windows 2007, 2008 servers and involved in Physical and logical Database Design using Erwin tool.
+Created ER diagrams using Visio.
+
+
+Enhancing the QTP scripts by doing unit testing on the scripts before creating scenario based tests in Test-Lab Module of Quality Center.
+
+
+
+bi 
+
+
+
+ssis
+Extensively used SSIS Import/Export Wizard for performing ETL operations 
+Created SSIS package to automate maintenance, database back up, update statistics, re-build indexes as well as create error log for event during data load. 
+Exported and imported data from text files and Excel to SQL Server database using bulk insert and BCP utility
+Created various MSBI(SSIS) packages using data transformations like Merge, Aggregate, Sort, Multicasting, Conditional Split, Derived column, transformation of XML File.
+Developed ETL packages with different data sources (SQL Server, Flat Files, Excel source files, XML files) and loaded data into target tables by performing different kinds of transformations using SQL Server Integration Services (SSIS) 
+Experience with designing the ETL process, including data read/write, data transformations, error handling, process design, logging and Development. 
+Created SSIS Package for uploads and schedule them as SQL Server Agent. Used SSIS to create ETL packages to validate, extract, transform and load data to data 
+Coordinated integration of Data cleansing scripts with ETL and scheduling tools.
+Data migration from text files, DB2, excel files to SQL server.
+Imported and exported data into MS Access databases and Debugged VBA scripts linked to said databases.
+Created linked servers to fetch data from Oracle.
+Created SSIS packages to transfer data from Oracle to SQL server using different SSIS components and used configuration files and variables for production deployment.
+Created SSIS Packages using Pivot Transformation, Execute SQL Task, Data Flow Task, etc to import data into the data warehouse.  
+Few times worked on COSMOS Workgroup Feed Import. The Automated feed will update tables from COSMOS Data. 
+Used C#.NET, VB.NET, or rarely ASP.NET  for Script Task in SSIS 
+Created an automated ETL summary report which consists of the summary information for all the loading activities done each day and month.
+Developed SSIS Templates which can be used to develop SSIS Packages such a way that they can be dynamically deployed into Development, Test and Production Environments 
+Involved in developing Data Marts from Oracle Data Warehouse, to migrate the data from different sources into the databases using SSIS in generating customer profile reports, 
+
+
+
+
+
+
+ssas
+Created SSAS cubes with multiple fact measures groups, and multiple dimension hierarchies based on the OLAP reporting needs.
+Understanding the OLAP processing for changing and maintaining the Warehousing Optimizing Dimensions, Hierarchies and adding the Aggregations to the Cube
+Created Dimension types such as Standard dimension, Parent-Child dimension and Role Play dimension in SSAS 
+Developed complex calculated members, Named Sets using MDX expressions for specific OLAP reporting requirements.
+Created several cubes in SSAS and build lot of MDX queries to query cubes and to access cube's data. 
+Involved in creating calculated members, named sets, and Identified Key Performance Indicators (KPI) for Business needs in SSAS 2008 and .
+Partitioned Cubes for optimizing the performance of Query and reduce down time.
+Assisted in developing OLAP cubes, wrote queries to produce reports using SQL Server Analysis Services (SSAS) and Reporting Services (SSRS).
+
+
+
+
+ssrs
+Used SSRS to create reports, customized Reports, on-demand reports, and involved in analyzing multi-dimensional reports in SSRS. 
+Designed and implemented Parameterized and Cascading Parameterized reports using SSRS. 
+Wrote Parameterized Queries for generating Tabular reports and Sub reports using Global variables, Expressions, Functions, Sorting the data, Defining Data sources and Subtotals for the reports using SSRS. Configured and maintained Report Manager and Report Server for SSRS. 
+Creating ad hoc queries according to business need and tuning existing queries to meet business standards. 
+Experience in configuring and deploying SSRS reports onto Microsoft Office SharePoint Server.
+Extensively used VB Script to pass multiple parameters for Stored Procedures to read and write database table. 
+Converted crystal reports to SQL Server reports using SSRS 2008.
+Developed dashboard reports using Reporting Services, Report Model and ad-hoc reporting using Report Builder.
+Preparing Dashboards using calculations, parameters, calculated fields, groups, sets and hierarchies in Tableau.
+
+
+
+Used TFS(Team Foundation Server) for all the source code maintenance among the whole team. 
+

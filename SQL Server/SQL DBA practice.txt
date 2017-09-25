@@ -1,0 +1,698 @@
+
+************************************
+SQL DBA EVERYDAY
+************************************
+
+MAJOR DBA ROLES
+***************
+
+INSTALL DB WITH DIFFERENT INSTANCES
+
+1) DAILY ROUTINES
+
+CHECK FOR TIMELY TICKETS AND FIX THEM
+*************************************
+
+server prog
+vpn
+user password
+user profile expire
+
+
+CHECK BACKUPS
+*************
+
+schedule the backups
+OPEN INSTANCE----SQL SERVER AGENT---JOBS---(RIGHT CLICK)---HISTORY---CHECK FOR GREEN CHECKS/ERROR MESSAGES
+
+
+CHECK RESTORE DB HAPPENED PROPERLY OR NOT
+*****************************************
+
+if you are restoring db for another instances
+situation where you take prod db and restore in another instance
+OPEN INSTANCE---SQL SERVER AGENT---JOBS---(RIGHT CLICK)---RESTORE DB---HISTORY---GREEN CHECK
+
+CHECK SCHEDULED JOBS EVERY DAY
+******************************
+
+INSTANCE---SQL SERVER AGENT---JOBS---(right click)---HISTORY---(log files)
+
+
+CHECK WINDOWS LEVEL/SQL SERVER LOG
+**********************************
+
+WINDOWS START MENU---EVENT VIEWER---WINDOWS LOG---(VIEW ERROR IN LOGS)---(VIEW CRITICAL LOGS)
+
+
+CHECK SSMS LOG FILES
+********************
+
+INSTANCE---MANAGEMENT---SQL SERVER LOGS--(right click)---LOG---(any wrong with master db---error in log file)/(if uncommited transaction then rollback)/
+
+
+CHECK SIZE OF LOG FILES
+***********************
+
+should have large space
+for reuse--log files are used
+
+DBCC SQLPERF (logspace)
+
+
+QA CHECKS THE QUERY
+*******************
+
+qa performance tuning 
+
+
+
+
+
+
+***********************
+SQL SERVER ARCHETECTURE
+***********************
+
+
+COMPONENTS
+**********
+
+MIN 3 SERVERS-----------MAX MANY()
+AVG 40 DB/DBA LOW 8 AND HIGHEST 270/ 25 DB OF 200 GB
+100GB TO 3-5 TB DB
+30,000 DB per INSTANCE
+SURVEY SAYS --SQL SERVER BEST
+
+SERVERS
+*******
+MIN 3 ......MAX  many
+SERVER 1 Development server
+         developer team-- sql developers
+         Development Environment
+             
+         QA Environment
+         regression/db/etl testing
+
+         Production Environment
+         End user/Customer data
+         ex: fb production data
+             my photos/posts
+         
+PLACES
+
+CLIENT PLACE:
+
+NEWYORK
+        contain DB
+
+HYDERABAD
+         you will be there
+         you will hold company email, ticket tool(for client communication purpose---accept+read+resolve issue), ip 
+
+
+NEWYORK TO HYDERABAD CONNECTION
+
+RDC- REMOTE DESKTOP CONNECTION
+TEAM VIEWER
+GO TO MY PC
+GO TO MEETING
+HANGOUTS
+
+METHODOLOGY
+
+SLA---SERVICE LEVEL AGREEMENT
+      CLIENT and WORK SPACE COMMUNICATION
+
+TICKET TYPES
+************
+CRITICAL --------immediate resolution --create downtime(no db access)
+HIGH     -------- 48 HRS
+MEDIUM   -------- 4 DAYS
+LOW      --------1 WEEK
+
+TICKET TOOLS
+************
+REMEDY(FAMOUS TICKET TOOL)
+SALESFORCE
+HP OPENVIEW
+ORACLE CRMOD
+MS OUTLOOK(say this name)
+
+CS 1
+*****
+
+ASSUME PRODUCTION DB
+1 GB DB BACKUP IN 1 MINUTE
+50 GB DB BACKUP IN 50 MINUTES
+DB SIZE VARIED ---SO TIME CONSUMPTION WILL BE VARIED BUT PROCESS WILL BE SAME
+
+
+BACKUP AND RESTORE DB
+*********************
+FOR PREPLANNING, DB SHOULD BE BACKUP
+DURING DISASTOR, YOU MAY LOOSE DB
+RESTORE FROM BACKUP IS NECESSORY
+
+BACKUP TYPES                        RESTORE TYPES
+**************************************************
+FULL                                WITH STANDBY(for only read only db/ full backup)
+DIFFERENTIAL                        WITH NO RECOVERY(not accessable db, you can restore many db/ full backup or differential backup)
+LOG                                 WITH RECOVERY(only for final backup file restoration/ full backup or differential backup or log backup)
+
+DESCRIPTION ABOUT WHO MANIPULATED DATA/RESTORED DATA/ ...
+
+in MSDB
+RESTORE FILE
+RESTORE GROUP
+RESTORE HISTORY
+
+1)BACKUP THE DB
+
+A) FULL BACKUP
+
+BACKUP DATABASE HARISHDB TO DISK='F:\FULLBACK.BAK'
+WITH INIT
+
+in practical --you will not backup db in to local drive
+
+B) DIFFERENTIAL BACKUP
+
+BACKUP DATABASE HARISHDB TO DISK='F:\DIFFERENTIALBACK.BAK'
+WITH DIFFERNTIAL INIT
+
+C) LOG BACKUP WITH NO TRUNCATE
+
+BACKUP LOG HARISHDB TO DISK='F:\LOGBACK.BAK'
+WITH NO_TRUNCATE
+
+
+NOW IF DATA BASE IS DELETED, YOU CAN RESTORE THEM
+
+2)RESTORE DB WITH BACKUP DB
+
+A) RESTORE FULL BACKUP
+
+RESTORE DATABASE HARISHDB FROM DISK='F:\FULLBACK.BAK'
+WITH NORECOVERY
+
+NOW IF YOU REFRESH, YOU CAN FIND THE DB BUT NO DATA IN IT
+
+B) RESTORE DIFFERENTIAL BACKUP WITH NO RECOVERY
+
+RESTORE DATABASE HARISHDB FROM DISK='F:\DIFFERENTIALBACK.BAK'
+WITH NORECOVERY
+
+NOW IF YOU REFRESH, YOU CAN FIND THE DB BUT NOT ACCESSABLE
+
+C) RESTORE LOG BACKUP WITH RECOVERY
+
+RESTORE LOG HARISHDB FROM DISK='F:\LOGBACK.BAK'
+WITH RECOVERY
+
+NOW YOU CAN ACCESS AND SEE DB
+
+SYSTEMDB---MSDB---TABLES---(YOU CAN SEE) RESTORE FILE GROUP + RESTORE FILE + RESTORE HISTORY
+
+
+BACKUP
+******
+
+WE HAVE TO TAKE BACKUPS FOR NOT ONLY PRODUCTION DB BUT ALSO MASTER AND SYSTEM DB
+DB = DATA FILE + LOG FILE
+FULL BACKUP = DATA + LOG
+DIFFERENTIAL BACKUP = DATA + LOG (BUT ONLY FROM LAST FULL BACKUP)--BECAUSE IT MAY BE TIME WASTE
+LOG BACKUP = LOG
+
+INFORMATION ABOUT BACKUP IS SEND TO MSDB 
+
+OTHER BACKUPS : FILES/FILE GROUP BACKUP
+                SPLIT 
+                MIRRORED 
+                COPY LOG 
+
+CS 2
+****
+
+PRODUCTION DB SIZE : 700GB
+BACKUP PLAN: FULL BACKUP: WEEKLY(WEEKENDS)--STARTS FROM INTIAL STAGE--OVERWRITE THE BACKUP
+             DIFF BACKUP: 30 MIN/24Hrs--STARTS FROM PREVIOUS FULL BACKUP--OVERWRITE THE BACKUP
+             LOG  BACKUP: 15 MIN/12Hrs--STARTS FROM PREVIOUS LOG BACKUP--APPEND THE BACKUP
+
+CS 3 DATABASE FAILURE
+*********************
+
+RECOVER WITH ABOVE ALL BACKUPS UPTO THE PROVIDED BACKUP
+LOG TAIL BACKUP MOSTLY HELPS
+
+
+SECURITY OF DB
+***************
+USER HAVE TO CONNECT TO DB SERVER TO GET ACCESS TO DB
+SO HE SHOULD HAVE LOGIN AND YOU CAN GET ACCESS TO USER DB
+SERVER LEVEL ROLES --DBA/ ASST DBA
+DATABASE LEVEL ROLES --PERMISSIONS LIKE READ
+                                        WRITE(ONLY FOR A SPECIFIC PERSON)
+2 TYPES OF LOGINS: WINDOWS AUTHENTICATION LOGIN(EXTRACT OS USER ACCOUNT LOGIN)+LOCAL 
+                   SQL SERVER AUTHENTICATION LOGIN(SEPERATE SQL ACCOUNT) + LOCAL +REMOTE
+
+
+ROLES OF SQL SERVER
+
+SYSADMIN ROLE--(DBA)
+DB_OWNER --ANY OPERATIONS EXCEPT RESTORE
+
+
+DISASTER RECOVERY PLAN
+**********************
+CREATING DUPLICATE PRODUCTION ENVIRONMENT
+CS 4
+****
+
+ASSUME YOU LOST PRODUCTION DB
+YOU ARE RECOVERING DATA FROM BACKUP FOR 2 HOURS
+DATABASE STATUS: UNKNOWN(DOWN TIME OF THE DB)
+THIS 2 HOURS ARE VERY IMPORTANT MAINLY FOR BANK DB
+BUT THIS IS NOT THE CORRECT SOLUTION
+NOW DISASTER RECOVERY PLAN IS REQUIRED
+SO................
+CONFIGURE DUPLICATE PRODUCTION ENVIRONMENT
+
+REQUIREMENTS: FULL BACKUP
+              NETWORK GOOD
+              ANY MODIFICATION, YOU HAVE TO MAKE MODIFICATION IN DUPLICATE ALSO
+              APPLICATION WILL BE CONNECTED TO PARTICULAR SERVER NAME(SO KEEP SAME NAME FOR SQL DB/SERVER)
+
+LOGSHIPPING
+MIRRORING
+ALWAYS ON 
+CLUSTERING 
+
+
+REPLICATION: 
+************
+             HAVING DUPLICATES IN DIFFERENT ENVIRONMENT
+             AT DIFFERENT DESTINATIONS
+             SO..........IN THIS
+             CREATION OF NEW ENVIRONMENT
+             EX: PROD DB ENVI--------DESTINATION ENVI---------SSRS/JAVA....
+             MIN 3 ENVIRONMENTS
+             1 ENVIRONMENT: PRODUCTION/PUBLISHER(_DB)-PRODUCE PUBLICATIONS
+             2 ENVIRONMENT: DISTRIBUTER(_DB)(MAY BE ON SAME OR DIFFERENT SERVER)(CONTAINS META DATA/IT IS NOT A STORAGE DB)--4 FILES RELATED TO ARTICLE
+             3 ENVIRONMENT: SUBSCRIBER(DUPLICATE)(_DB)
+             OBJECTS THAT IS DUPLICATED (DB/TABLE/SP/VIEW/...) IS CALLED ARTICLE----FIRSTLY GOES AS META DATA
+             REPLICATION AGENTS: 1 SNAPSHOT AGENT: PUBLISHER(PUBLICATION) TO DISTRIBUTER
+                                 2 DISTRIBUTOR AGENT: DISTRIBUTER TO SUBSCRIBER---REPLICATIONS AND MODIFICATIONS
+                                 3 LOG READER AGENT: PUBLISHER TO DISTRIBUTER---MODIFICATIONS
+
+META DATA FOLDER: C:\PROGRAM FILES\SQLSERVER.INSTANCE\SQL SERVER\META DATA 
+
+
+ALL THESE ARE DISASTER RECOVERY PLANS
+
+DB MAINTAINANCE PLAN
+********************
+IT IS A MANAGEMENT OF JOB/TASKS
+
+1 CHECK DB INTEGRITY
+2 REORGANIZE INDEX
+3 REBUILD INDEX
+4 SHRINK DATABASE
+5 UPDATE STATS
+6 CLEANUP HISTORY
+7 CLEANUP MAINTAINANCE HISTORY
+8 AGENT JOB
+9 FULL/DIFF/LOG BACKUP PLANS
+
+CS
+**
+ASSUME INITIAL SIZE OF DB 1 GB
+REQUIREMENT
+IF 10% INC IN DB
+TAKE A BACKUP
+ 
+SO............
+CREATE A JOB IN SQL SERVER AGENT
+
+
+HISTORY OF MAINTAINANCE PLAN WILL BE STORED IN LOG FILES
+C:\PROGRAM FILES\SQL SERVER\MS SQL INSTANCENAME\MS SQL\LOG.TXT
+
+YOU CAN PERFORM MAINTAINANCE PLAN BY USING SSMS/SSIS
+
+SQL DBA TASK IN SSIS
+********************
+IN CONTROL FLOW SOME TASKS ARE RELATED TO DBA TEAM
+SSIS---PROJ---PACKAGES---CONTROL FLOW
+
+TASKS HANDLED BY DBA IN SSIS
+
+1 TRANSFER LOGIN----TO TRANSFER THE LOGIN OF SERVER FROM PROD TO DUP LEVEL ENVI
+2 TRANSFER DATABASE ---FROM ONE SERVER TO ANOTHER BY BACKUP/RESTORE OR IMPORT/EXPORT OR MDF/LDF ATTACH/DETTACH
+3 TRANSFER JOBS
+4 BULK INSERT----COPY DATA FROM FF TO SQL SERVERS--CREATE TABLE ACCORDING TO THE FF--
+
+MONITERING AND TROUBLESHOOTING SQL SERVER 
+******************************************
+
+HOW TO FIND ERROR MESSAGES IN SQL SERVER
+SSMS----SQL SERVER AGENT---ERROR LOG ---ERROR/SUCEED/WARNING LOG FILE
+LOG FOLDER----C:\PROGRAM FILES\SQL SERVER\MSSQL INSTANCENAME\MSSQL LOG\ERROR LOG
+EVENT VIEWER---(OS TOOL) START---EVENT VIEWER---APPLICATION
+
+CHECK SERVICES OF SQL SERVER
+SERVICES WINDOW------START --RUN--SERVICES MSC
+SCM(SQLSERVER CONFIG MANAGER)----START ---PROGRAMS---SQLSERVER--CONFIGURATION TOOLS--SCM
+PROTOCOLS: NAMED PIPES(FOR LAN)
+           TCP IP     (FOR WAN)
+           SHARED MEMORY
+
+ROOT CAUSE ANALYSIS(RCA)
+
+
+
+
+PROJECT MANAGEMENT
+*******************
+
+ITIL-------INFORMATION TECHNOLOGY INFRASTRUCTURE LIBRARY
+           IT IS LIKE SDLC
+           SLA------SERVICE LEVEL AGREEMENT
+       INTERNAL TICKETS: FROM SAME COMPANY
+       EXTERNAL TICKETS: FROM THE CLIENT BY EMAIL/PHONE
+         
+       P1    CRITICAL PRIORITY ISSUES-------IMMEDIATE RESOLUTION IS REQUIRED
+                                          DB CORRUPTED/SUSPECT/UNABLE TO ACCESS
+                                          SERVER DOWN
+       P2    HIGH PRIORITY ISSUES/TICKET----45 HOURS
+       P3    MEDIUM                     ----4 DAYS
+       P4    LOW                        ----1 WEEK
+
+
+HIERARFCHY
+**********
+
+VICE PRESIDENT
+DIRECTOR
+SR. PM
+PM
+TL
+SR. DBA
+DBA
+
+
+MEETINGS
+********
+
+WEEKLY--NO OF TICKETS
+MONTHLY--DIFFERENT TEAM
+CLIENT CALLS
+BRIDGE CALLS/CONFERENCE CALLS
+VIDEO CONFERENCE WITH ONSITE TEAM
+
+
+TOOLS FOR PM:
+*************
+
+WEBMAIL
+IP PHONE
+WINDOWS MESSENGER
+OUTLOOK
+
+
+CLIENT INTERACTION
+******************
+
+IF THE WORK IS DONE ON TIME ---REDUCE THE PRIORITY LEVEL
+
+WORKING WITH CONFIGURATIONS
+***************************
+
+
+PERFORMANCE TUNING
+******************
+
+
+PROJECT
+*******        
+    
+         
+
+
+
+
+
+
+
+
+RELATIONAL ENGINE
+
+-sql server contains rdbms
+-it is a query processor
+-what your query needs to do?
+
+-execution of query
+-deals with machine language
+-contains query optimizer-tells best way to retrieve the data back--choose best query
+ (for this it involves the method of permutation)
+-memory/thread/task management
+
+-commiting data when executed in different environment
+
+
+
+
+STORAGE ENGINE
+
+-data manupulated, retrieved from the storage engine
+-commit/rollback transaction
+-db---mdf files physically stored in pages(8kb/each)
+-ldf log data file --stores for restore/backup/recovery
+-acid atomicity consistancy isolation durability
+-rows/column stored in pages
+-in oracle it is saved in dbf
+-group of pages will be in extent
+-pfs is an archetectural tool. Manage allocation of pages/data and empty data
+-gam/sgam manage allocation of extent
+-bcm manage bulk operation commands
+
+
+
+SQL OS
+
+
+has own os 
+32 instances max
+but more the instances, more the load on the os
+recommended 2 instances
+cpu/work management
+garbage collection--memory handling
+error handling --done by sql os 
+
+
+
+
+
+
+CLIENT SERVER ARCHITECTURE
+
+CLIENT----------------APPLICATION----------------DB
+Desktop               .net/java/python           sql server/oracle
+
+
+
+***********************************
+PROBLEMS/ISSUES/TASKS AND THEIR SOLUTIONS
+***********************************
+
+---------------bad database------------------
+
+long time to get data when you search any thing on web
+
+response time=processing time + waiting time
+
+
+
+poor sql statements
+(no parameterized data/variables)
+improper archieve/indexing/normalization 
+volume estimation
+
+CREATE INDEXES
+**************
+
+CREATE NONCLUSTERED INDEX IDX_CLASS
+ON dbo.CLASS(CLASS_ID, CLASS_NAME)
+WHERE (condn) CLASS_ID IN (1, 2, 3, 4, 5, 6, 7)
+
+CREATE UNIQUE NONCLUSTERED INDEX IDX_CLASS_ID
+ON dbo.CLASS(CLASS_NAME)
+
+CREATE UNIQUE CLUSTERED INDEX IDX_CLASS_ID
+ON dbo.CLASS(CLASSID)
+
+
+SHOW INDEXES
+************
+
+SELECT OBJECT_NAME(OBJECT_ID), NAME, INDEX_ID, TYPE_DESC
+FROM SYS.INDEXES
+ORDER BY 1
+
+USE AdventureWorks
+GO
+SELECT DB_NAME() AS Database_Name
+, sc.name AS Schema_Name
+, o.name AS Table_Name
+, i.name AS Index_Name
+, i.type_desc AS Index_Type
+FROM sys.indexes i
+INNER JOIN sys.objects o ON i.object_id = o.object_id
+INNER JOIN sys.schemas sc ON o.schema_id = sc.schema_id
+WHERE i.name IS NOT NULL
+AND o.type = 'U'
+ORDER BY o.name, i.type
+
+
+-- KDF9's concise index list for SQL Server 2005+  (see below for 2000)
+--   includes schemas and primary keys, in easy to read format
+--   with unique, clustered, and all ascending/descendings in a single column
+-- Needs simple manual add or delete to change maximum number of key columns
+--   but is easy to understand and modify, with no UDFs or complex logic
+--
+SELECT
+  schema_name(schema_id) as SchemaName, OBJECT_NAME(si.object_id) as TableName, si.name as IndexName,
+  (CASE is_primary_key WHEN 1 THEN 'PK' ELSE '' END) as PK,
+  (CASE is_unique WHEN 1 THEN '1' ELSE '0' END)+' '+
+  (CASE si.type WHEN 1 THEN 'C' WHEN 3 THEN 'X' ELSE 'B' END)+' '+  -- B=basic, C=Clustered, X=XML
+  (CASE INDEXKEY_PROPERTY(si.object_id,index_id,1,'IsDescending') WHEN 0 THEN 'A' WHEN 1 THEN 'D' ELSE '' END)+
+  (CASE INDEXKEY_PROPERTY(si.object_id,index_id,2,'IsDescending') WHEN 0 THEN 'A' WHEN 1 THEN 'D' ELSE '' END)+
+  (CASE INDEXKEY_PROPERTY(si.object_id,index_id,3,'IsDescending') WHEN 0 THEN 'A' WHEN 1 THEN 'D' ELSE '' END)+
+  (CASE INDEXKEY_PROPERTY(si.object_id,index_id,4,'IsDescending') WHEN 0 THEN 'A' WHEN 1 THEN 'D' ELSE '' END)+
+  (CASE INDEXKEY_PROPERTY(si.object_id,index_id,5,'IsDescending') WHEN 0 THEN 'A' WHEN 1 THEN 'D' ELSE '' END)+
+  (CASE INDEXKEY_PROPERTY(si.object_id,index_id,6,'IsDescending') WHEN 0 THEN 'A' WHEN 1 THEN 'D' ELSE '' END)+
+  '' as 'Type',
+  INDEX_COL(schema_name(schema_id)+'.'+OBJECT_NAME(si.object_id),index_id,1) as Key1,
+  INDEX_COL(schema_name(schema_id)+'.'+OBJECT_NAME(si.object_id),index_id,2) as Key2,
+  INDEX_COL(schema_name(schema_id)+'.'+OBJECT_NAME(si.object_id),index_id,3) as Key3,
+  INDEX_COL(schema_name(schema_id)+'.'+OBJECT_NAME(si.object_id),index_id,4) as Key4,
+  INDEX_COL(schema_name(schema_id)+'.'+OBJECT_NAME(si.object_id),index_id,5) as Key5,
+  INDEX_COL(schema_name(schema_id)+'.'+OBJECT_NAME(si.object_id),index_id,6) as Key6
+FROM sys.indexes as si
+LEFT JOIN sys.objects as so on so.object_id=si.object_id
+WHERE index_id>0 -- omit the default heap
+  and OBJECTPROPERTY(si.object_id,'IsMsShipped')=0 -- omit system tables
+  and not (schema_name(schema_id)='dbo' and OBJECT_NAME(si.object_id)='sysdiagrams') -- omit sysdiagrams
+ORDER BY SchemaName,TableName,IndexName
+
+-------------------------------------------------------------------
+-- or to generate creation scripts put a simple wrapper around that
+SELECT SchemaName, TableName, IndexName,
+  (CASE pk
+    WHEN 'PK' THEN 'ALTER '+
+     'TABLE '+SchemaName+'.'+TableName+' ADD CONSTRAINT '+IndexName+' PRIMARY KEY'+
+     (CASE substring(Type,3,1) WHEN 'C' THEN ' CLUSTERED' ELSE '' END)
+    ELSE 'CREATE '+
+     (CASE substring(Type,1,1) WHEN '1' THEN 'UNIQUE ' ELSE '' END)+
+     (CASE substring(Type,3,1) WHEN 'C' THEN 'CLUSTERED ' ELSE '' END)+
+     'INDEX '+IndexName+' ON '+SchemaName+'.'+TableName
+    END)+
+  ' ('+
+    (CASE WHEN Key1 is null THEN '' ELSE      Key1+(CASE substring(Type,4+1,1) WHEN 'D' THEN ' DESC' ELSE '' END) END)+
+    (CASE WHEN Key2 is null THEN '' ELSE ', '+Key2+(CASE substring(Type,4+2,1) WHEN 'D' THEN ' DESC' ELSE '' END) END)+
+    (CASE WHEN Key3 is null THEN '' ELSE ', '+Key3+(CASE substring(Type,4+3,1) WHEN 'D' THEN ' DESC' ELSE '' END) END)+
+    (CASE WHEN Key4 is null THEN '' ELSE ', '+Key4+(CASE substring(Type,4+4,1) WHEN 'D' THEN ' DESC' ELSE '' END) END)+
+    (CASE WHEN Key5 is null THEN '' ELSE ', '+Key5+(CASE substring(Type,4+5,1) WHEN 'D' THEN ' DESC' ELSE '' END) END)+
+    (CASE WHEN Key6 is null THEN '' ELSE ', '+Key6+(CASE substring(Type,4+6,1) WHEN 'D' THEN ' DESC' ELSE '' END) END)+
+    ')' as CreateIndex
+FROM (
+  ...
+  ...listing SQL same as above minus the ORDER BY...
+  ...
+  ) as indexes
+ORDER BY SchemaName,TableName,IndexName
+----------------------------------------------------------
+select * from sys.indexes
+
+dbcc ind('AdventureWorks2012','HumanResources.EmployeePayHistory',1)
+
+dbcc page('AdventureWorks2012', 1,131,1 ) 
+
+----------------------------------------------------------
+-- For SQL Server 2000 the following should work
+--   change table names to sysindexes and sysobjects (no dots)
+--   change object_id => id, index_id => indid,
+--   change is_primary_key => (select count(constid) from sysconstraints as sc where sc.id=si.id and sc.status&15=1)
+--   change is_unique => INDEXPROPERTY(si.id,si.name,'IsUnique')
+--   change si.type => INDEXPROPERTY(si.id,si.name,'IsClustered')
+--   remove all references to schemas including schema name qualifiers, and the XML type
+--   add select where indid<255 and si.status&64=0 (to omit the text/image index and autostats)
+
+---------------------------------------------------------------
+
+
+sending 1 db from 1 sql server to another
+*****************************************
+
+1) backup by gui
+
+right click---backup---to location---full backup
+send the file to the drive/mchn
+now restore it
+
+2) backup by sql cmd
+
+3) mdf file 
+properties---files---mdf and ldf
+send mdf file to where ever 
+attach to the system/machine you want 
+
+
+DEALING WITH CORRUPTED PAGE
+***************************
+
+TABLE WITH ROWS
+WITH CLUSTERED/NON CLUSTERED/NO INDEX
+IF PAGE CORRUPT----TRY TO FIX IT----ELSE, RESTORE THE LATEST BACKUP
+1)CORRUPT PAGE ON NONCLUSTERED INDEX
+
+
+
+BEFORE INSTALLATION OF SQL SERVER
+*********************************
+IP ADDRESS
+***********
+cmd---ipconfig
+you can check in the internet about public ipaddress
+router ip address can be seen in default gateway 
+
+PORT NUMBER
+***********
+scm---sql server network config---portnumber
+different instance has different portnumber
+make it static port number
+
+OPEN FIREWALL SETTING
+*********************
+START --FIREWALL--ALLOW A PROG FOR WINDOWS PROG
+      --YOU CAN ADD BROWSER SERVICE HERE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,64 @@
+CONSTRAINTS:
+Constraints are the rules enforced on data coolums of a table this ensure accuracy and reliability of data in database 
+Constrainst could be either on a colum level or Table Level
+NOT NULL, DEFAULT, PRIMARY KEY, FOREIGN KEY, UNIQUE, CHECK CONSTAINT 
+
+JOINTS:
+Inner Join : Inner Joins shows matching data present in bothtables
+Left Join :  Gets all data in left table and only matched data from right table 
+Right Join : Vice Versa
+Full Outer join : all record from both tables 
+
+Union VS Union all :
+combine two select statements and display has one record 
+union removes duplicate values 
+Union performance is very less
+
+INDEXES :
+Are special look up tables that database search engine can use to spped up data retrieval. 
+indexes are pointer to data in a table.
+Speed of indexes for select and where clause queries is high but for DML Comands is very slow 
+Indexes can created or dropped with no effect on data 
+TYPES OF INDEXES
+Single-column Indexes: is created based on only one table Column
+CREATE INDEX indexname 
+
+Root node , non leaf nodes and leaf nodes: index
+ seek or index scan
+on Tablename ( columnname );
+
+Unique Indexes: It does not allow any duplicate values to be inserted into the table
+create unique Indexnmae 
+
+Composite Indexes: When an index created on two or more columns of a table
+create index indexname
+on tablename (column1, column2);
+
+WHEN SHOULD INDEXES BE AVOIDED: 
+
+should not be used on small tables
+tables haave insert operatiosn 
+coulmns which hae high number of null values
+colums which are frequently manipulated should not be indexed
+
+syntax to find the clustered index on a table 
+execute sp_helpindex tablename;
+
+An table can have only one clustered index but an clustered index can have morethan 1 columns
+Non Clustered index is stored separatly from catual data, a table can have moretha 1 non clustered indexes
+
+clustered indexs are faster than non
+clustered index uses less space compared to non cluster.
+
+VIEW : 
+A view is nothing but a saved query, vw is a virtual table 
+
+Temp Table:
+
+local temporary table : create table #temptablename are created in tempDB
+are present in system databases and check in temporary tables.
+
+to find the temp tbame :
+select name from tempdb.sysobjects
+where name ='#tempname%'
+

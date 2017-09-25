@@ -1,0 +1,62 @@
+Good knowledge and exposure in using Teradata and SAS utilities to maintain and move data between platforms. 
+SAS 9.1
+Created SQL procedure and implemented other the Structured Query Language (SQL) statements that are useful for the SAS System and SQL BI development.
+Helped SAS analysts in making statistical analysis and reports using SAS.
+Worked closely with Analytics team to enable datasets for self-service analytics for multiple analytical tools like SAS, MicroStrategy and future toolsets.
+
+
+
+Modified and supported in-house .NET application for network infrastructure using C#, MS SQL Express 
+Web application developer for ASP .NET Web reporting site
+sas --stat analy sys
+    --info retrieval/datamining/opr and research/data wh/ dashboard
+    --gui and prog
+    --interface--sas functional and other api
+    --contain data set---can also have sql support
+    --output delivery system--can create different type of data  like xml, ff, excel,
+    --platforms- linux/unix/ms/ ibm /alpha
+    --latest version 9
+    --leader in bi
+    --not only bi , erp also
+
+user types---administator+ etl+analyst +report creator
+
+sas bi
+
+SAS INTEGRATION
+---extraction of data from heterogenus databases
+ETL ---SAS DI studio
+      
+
+
+ I MAP 
+---olap cubes/ information maps /aggregation layer---add cube into the i map 
+CUBES-- OLAP cubes studio
+
+(by insert cube icon+ select the attributes + create folder/sub folder to organise the data like measure/fact(aggregation may be done for this)
+ you can custom the format + you can add filters(data item(ex region) + condition(=/<>/...))
+ relation ships can also be set--(1-1, 1-many)
+ permittion -- value generation ---dynamic
+ you can also add new data item
+ you can test the data by using and save the data location
+
+SAS WEB REPORTS
+
+report authors ----read+edit
+report consumers---read only
+
+select data source---choose information map and items to display in the report
+                           )
+      
+      ---gen of reports
+
+
+
+
+
+
+
+
+
+
+

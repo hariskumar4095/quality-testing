@@ -1,0 +1,86 @@
+SSRS
+
+Stages of report life cycle.
+1) Development, 2) Management--Optimization and Security, 
+3) Delivery -- deployement and delivery via emails, shared folders or subscriptions.
+
+Requirement Gathering :
+
+
+Tabular Report by using page and details options 
+
+Stepped report 
+block reports with sub totals
+page , group and detail tabular report
+
+shared data source 
+use of query builder features in report wizard to create sql query for report 
+
+Stepped Grouped report 
+Group value on top and detail will be start in next level
+
+block group report 
+
+where group value and details will start at same level 
+
+DrillDown group report 
+hiding the detail and then toggleing by region 
+
+Multiggroup drilldown 
+
+create report with group on page 
+using page breaks 
+
+Display Report name and header row 
+When you need header on each page then
+What is the data source advance mode then u will get small window below with static and press f4
+repeateonnewpage set true 
+
+How to display report on single page 
+press f4 , interactivesize and set height ==0 
+
+How to add running total 
+add new column and go to expression , select aggregate and select runningvalue
+
+How to add running total by group and dataset level 
+
+How to add row number to rows in ssrs 
+right click and select expressions , common functions and select on rownumber
+
+How to create static values parameter 
+exp = @exp
+
+Single value parameters with values from query 
+parameter properties and selct available vales , select values from query 
+
+Multivalue parameter .allow multiple values 
+write value asia then enter north in next line 
+
+Date Parameters with calender 
+click on parameter and select properties and then change data type to Date/time 
+
+Radio Button parameters 
+used when to find boolean type in report change dat typr has boolean
+
+Casscade parameter multiple filter 
+search by applying filter 
+
+How to make ssrs report optional 
+
+How to create drillthrough report 
+go to proerties, text box properties  , action , go to report then specify the report 
+
+
+
+how should data be presented
+
+Components of SSRS
+Rport designer 
+report builder
+report server
+report manager
+
+types of report 
+Managed reports, Ad Hoc Reports, Embedded reports
+
+

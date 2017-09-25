@@ -1,0 +1,805 @@
+
+***********************************************
+                        SSIS
+***********************************************
+
+every company has different type of software for the database or different environment(excel/SAP/mainframe/java/xml/oracle/notepads)
+data size--------1000 rows or milions of rows
+may have some errors/duplicate (not cleaned data)
+ex:  types of data: category data, production data, price data, .....
+
+
+
+questions to ask before migration/analysis
+
+in what form?
+size?
+location? ind/pak/usa......
+accuracy level?redundancy?
+
+dwh---large db
+transactional data---day to day business data
+
+
+oltp--fresh data/live data ---online transaction processing---SMALL DATA 500GB
+
+use of ssis
+when data in oltp is full--migration from centralized data
+
+
+ETL is like motor and oltp is like bucket and water and dwh is tank
+
+tools ETL
+
+Oracle Warehouse Builder (OWB)            3
+SAP Data Services.
+IBM Infosphere Information Server.
+SAS Data Management.
+PowerCenter Informatica.         1
+Elixir Repertoire for Data ETL.
+Data Migrator (IBI)
+SQL Server Integration Services (SSIS)     2
+
+
+loading data may be hrly/daily/mnth/qtrly
+
+OLAP
+
+online application processing
+DATAMARTS OR DWH
+OLD DATA        ---10-20TB
+USED FOR ANALYSIS
+YOUR ACCOUNT AND LOGIN ---OLTP
+DE NORMALIZED DATA
+SHOULD USE MORE INDEXES
+
+
+TRANSFORMATION
+
+one type of data to another
+
+
+cloud ---has storage+db
+db---data stored in the server
+
+ERD modeling=== in oltp
+DIM modeling=== in olap
+
+
+origin of ssis
+
+DTS(upto 2005)---extension is .dts--only RDBMS---using COM--no more support by MS
+SSIS (after DTS)---extension is .dtsx
+built by using .NET(C#.NET, VB.NET)
+SSIS(2016) includes BIGDATA concepts also
+80-90% concepts are having sql language
+
+
+.NET version 4.5 is running now
+
+visual studio---integration---name the proj---destination folder
+.
+.
+.
+home page:   solution explorer, error column, tool box(task), control flow, data flow, parameters, package explorer and event handler
+             
+CONTROL FLOW------contains tasks & containers & constraints
+
+task1=====>task2======>precedential contraint(helps in choosing the task to be executed first)
+DATA FLOW ---it is a task(mostly used tool)---part of control flow--not mandate unless want transformation----source & transformation & destination
+
+DIFFERENCE BETWEEN CONTROL FLOW AND DATA FLOW
+
+MAIN()---control flow---execution starts here{
+
+
+TASK 1 printf()
+TASK 2 scanf()------data flow 
+TASK 3 loop{}
+.
+.
+
+}
+
+can have 0 or many data flow tasks 
+
+PARAMETERS----VARIABLES ----USED DURING THE DEPLOYMENT
+
+
+EVENT HANDLERS--error/warning/-----error handling is done here
+
+PACKAGE EXPLORER----just like windows explorer---contains all CONNECTIONS/LOGS/EVENT HANDLERS/VARIABLES
+
+
+CONNECTION MANAGER-----SOURCE(oracle/oledb/excel/xml/access)/DESTINATION
+
+2005 to 2012/2014
+ssis packages---rt click---upgrade all packages wizard---can upgrade
+
+TASKS
+**********
+
+DATA FLOW TASK----ETL opr---source trans destination
+
+EXEC SQL TASK---DDL/DML/TCL/DCL/FUNCTION/PROC--FASTER--IN BACHES
+
+ANALYSIS SERVICE TASK---YOU CAN CALL CUBE FROM SSAS
+
+BULK INSERT TASK---import text/dim files into sql server
+                ---fast
+                ---many rows
+                ---only source FLAT FILE/WORD     (-VE)
+                ---DESTINATION-- SQL SERVER
+                ---ERRORS MAY OCCUR
+
+DATA(MAY BE FROM ANY DB (ORACLE/SQL SERVER/MYSQL/....), FILES(FF/EXCEL/XML/RAW....), AUDIO, VIDEO...)
+
+
+
+
+EXEC SQL TASK----
+
+GO TO CONTROL FLOW
+SELECT AND DRAG&DROP A TASK YOU CHOSE
+YOU WILL SEE 'x-RED' SYMBOL
+GO TO SQL SERVER
+CONNECT TO LOCAL SQL SERVER
+TAKE A DB
+SELECT A QUERY
+
+GO TO TASK
+SELECT THE CONNECTION TYPE
+GIVE THE CONNECTION TO THE SERVER---your boss will give the server/ip/mail id to connect
+                                 ---for now you connect to localhost/.
+you can also connect to different type of db such as oracle/etc..
+choose db
+ok
+sql statement----copy and paste the sql stment you want to perform
+ok
+you can also add some annotations for your knowledge
+you can also set a font 
+you can also add author name, date of prep-----imp in real world
+you can rename this---the task you want to do
+
+
+You can see the connections below and you can modify in future
+
+PROGRESS WINDOW--shows when you start exec ---you can click the link in that to stop the debugging
+               --you can see the time of exec here
+
+
+error:
+SSIS package "c:\users\user\documents\visual studio 2010\projects\Integration Services Project2\Integration Services Project2\EXEC_SQL.dtsx" starting.
+Error: 0xC002F210 at exec sql task example --selecing data and sending to stageCategory, Execute SQL Task: Executing the query "
+select * into stageCategory from [dbo].[Categori..." failed with the following error: "Invalid object name 'dbo.Categories'.". Possible failure reasons: Problems with the query, "ResultSet" property not set correctly, parameters not set correctly, or connection not established correctly.
+Task failed: exec sql task example --selecing data and sending to stageCategory
+SSIS package "c:\users\user\documents\visual studio 2010\projects\Integration Services Project2\Integration Services Project2\EXEC_SQL.dtsx" finished: Success.
+
+--this is because you didnt mention DB name in the query
+
+
+BULK INSERT TASK
+
+--ONLY FROM FF
+--YOU CAN PERFORM MANY AFTER SENDING IT TO OLEDB--files will be given by customers
+--SELECT THE FILE FROM FOLDER(computer)
+--give the connection
+--create and set destination table
+--set column delimiters ---comma (,)--because rows are div by ,
+--goto options--set first colum =2 if ff data has a heading
+
+DATA PROFILING TASK
+
+--work on sql server profiler
+--for quality purpose
+--?nulls ?different values(?m ?f/?1 ?2 ?3) ?keys (?any duplicates in the fk) 
+--sampling of the data
+
+
+EXECUTE PACKAGE TASK
+
+--can exec another packages also
+--package exec another package----like package inside package
+
+
+EXECUTE PROCESS TASK
+
+--you can run exec files like .exe etc
+--you can zip/unzip 
+--send sms--(reads the data in ssms and send sms)--you must call another process/app
+
+
+1)EXEC .EXE FILE
+
+give working folder--source
+give the argument --/C MKDIR D:\USA
+YOU WILL SEE A FOLDER NAMED USA
+
+2) ZIP/UNZIP A FILE
+
+drag and drop EXEC PROCESS TASK
+give working folder--the folder you want to change to zip
+give argument ---a D:\ for the ARCHIVE 
+                 e D:\ for the extraction
+process winrar.exe exec process 
+
+NOW YOU CAN SEE ALL THE FILES WILL BE ZIP/UNZIPPED
+
+SEND MAIL TASK
+
+SSIS package "c:\users\user\documents\visual studio 2010\projects\Integration Services Project2\Integration Services Project2\EXEC_SQL.dtsx" starting.
+Error: 0xC002F304 at Send Mail Task, Send Mail Task: An error occurred with the following error message: "Failure sending mail.  System.Net.WebException: The remote name could not be resolved: '.'".
+Task failed: Send Mail Task
+SSIS package "c:\users\user\documents\visual studio 2010\projects\Integration Services Project2\Integration Services Project2\EXEC_SQL.dtsx" finished: Success.
+
+ERROR because you didnt have smpt server details
+
+
+EXPRESSION TASK + SCRIPT TASK
+
+--write small expressions with parameters and use .net files (script task to display it)
+ex: no of files in the folder/no of rows
+
+
+FILE SYSTEM TASK
+
+CREATE/DELETE/MOVE/COPY            FILE/FOLDER
+
+
+
+FTP TASK
+
+it is just like GOOGLE DRIVE/GIT
+YOU CAN LOAD THE FILES INTO IT
+
+
+CONNECT TO THE SERVER:  ftp.ed.ac.uk
+
+choose local dir
+select which ftp task to perform
+choose the file from FTP
+
+NOW YOU CAN PERFORM TASK OF THE FILE/FOLDER FROM FTP SERVER
+
+
+
+SCRIPT TASK
+
+SQL PROGRAMING 90%
+.NET PROGRAMING 10%(C#.NET, ASP.NET)
+
+important .NET tasks
+even you dont know .NET
+USE 1) some times the client give the file which is not supported by the ssis input files
+       EX: .pdf, .doc, .jpeg
+       here you need .NET
+    2) if the folder is EMPTY/NOT
+       if there is a folder is having a file---is the file having DATA/NOT
+    3) GET THE DATA FROM THE FILE WHICH IS MODIFIED TODAY
+
+BASIC SCRIPT TASK
+
+open script task ---open c#.net
+you can write a basic message
+Messagebox.Show("hi guys, you can write the script task here");
+
+
+
+what is WEB SERVICE
+
+DEV 1: CREATE A FUN1()               ---SENDS IT TO THE WEB/INTERNET
+       CALL FUN1()
+
+DEV 2: CALL FUN1()
+       /*THIS DEVELOPER CAN CALL THE FUNCTION IF AND ONLY IF IT IS IN THE INTERNET/SERVER
+          BY THIS HE MAY USE THE FUNCTION ALL READY IN THE WEB
+          HE MAY NOT CREATE ANOTHER ONE AND USE IT */
+
+WEB SERVICE TASK
+
+used to call function from the web
+
+XML TASK
+
+used to work on XML files
+
+XML
+XTENSIONABLE MARKUP LANGUAGE
+W3C INVENTED IT
+HTML --TO RENDER/SHOW THE DATA--CREATE WEBSITE--SHARES THE DATA 
+       EX: AMAZON.COM
+XML --
+                
+		 CITI BANK     HDFC BANK
+                 .NET          JAVA
+                    (LANGUAGE BARRIER)
+                   ATM           ATM
+                 (SO ANY LANGUAGE COMMON)
+                          XML
+
+WHAT DOES XML CONTAIN? WHY TO USE XML?
+
+REMOVE PLATFORM BARRIERS
+WHEN INDIAN AND ARAB PERSON TALKS
+THEY TALK IN ENGLISH
+HERE ENGLISH IS LIKE XML
+
+USE NOTEPAD        .XML      SHOULD BE ABLE TO SEE IN THE BROWSER
+<> NODE/TAG
+
+<CUSTOMER>
+          <ACC.NO>1234</ACC.NO>
+          <TYPE>CW</TYPE>
+          <BALANCE>2000</BALANCE>
+</CUSTOMER>
+
+ save this file as .xml
+run it 
+ you can see it in explore/chrome..
+
+
+IF SOMEBODY GIVE THE DATA IN THE FORM OF XML FILE ---YOU SHOULD CONVERT IT IN SSIS AND SAVE IN OLEDB 
+
+
+
+
+CONTAINERS (TO ORDER AND RECURSE THE EVENT)
+
+1)SEQUENTIAL CONTAINERS
+
+SET THE TASKS YOU WANT TO DO IN THE CONTAINERS
+ADD A SEQ
+IF YOU HAVE 2 OR MORE CONTAINERS 
+
+
+2)FOR LOOP--if you know how many times you want to run the loop
+            right click on the screen
+            add variable
+            choose a task
+            place it in the container
+            intialize+set max limit+ increment
+            now run the container
+            
+3)FOR EACH LOOP--if you dont know how many times to run the loop
+                 drag and drop for each loop
+                 set what you want to make action(on file/item(row/columns in the file)/.net files/oledb(smo files))
+                 choose the task--drag and drop into the container
+                 now execute the task
+
+PARTS OF A LOOP
+
+intialization
+condition
+inc/dec
+
+intialization 
+       declare @x int
+       set @x=1
+condition
+       while(@x<9)
+       print @x
+inc/dec
+       @x=@x+1
+
+
+
+
+
+DATA FLOW TASK
+
+--ETL tasks
+lot of sources/destination/transformation
+
+sources
+ADO.NET ---CONNECT TO .NET/SHARE POINT 
+CDC --inc loading of data
+ff--txt files
+oledb/odbc files
+raw file
+xml file
+
+
+ff files              vs           raw files
+
+structured data                    no structure
+drivers are req to connect         no drivers are req
+human readable                     machine readable
+slow  (parsing)                    fast
+                                   better to make .raw file
+
+delimited flat file
+
+words seperated with    ,  space etc
+
+
+fixed width flat file
+
+ex: eidnamesal
+any one dont know what is the data
+the customer should say the length of the each data
+
+
+destination
+
+data mining
+excel
+oledb/odbc/sql server 
+sql server compact destination----for android application/ios applications
+
+oledb                    vs                   sql server
+local or remote                               only local servers
+can be used for any rdms                      only sql server
+
+remote      souce ssis and destination will be different position
+ 
+raw file destinations
+.raw 
+choose columns
+ok
+done
+open with notepad
+you may not be able to read
+ssis can read
+
+
+transformations
+
+32 transformation
+
+aggregate 
+cond spit / row sampling / % sampling
+
+SORT --performs sorting for the input data
+       blocked transformation(read+sort(should wait until it read)+load(should wait until it get sort))
+       you can sort by any ord
+       if you perform same task again, you will get duplicate
+       at this time -----exec sql task, trucate the data
+       truncate table table_name
+       when you have large data ----you should not SORT
+                                    BLOCKED TRANSFORMATIONS --DONT USE IT MORE
+
+       
+AGGREGATE --
+
+
+
+
+AUDIT--
+
+
+
+CACHE --
+
+
+
+
+CHAR MAP --
+
+
+
+DATA CONVERSION--
+UNICODE-all languages--excel/xml
+NON UNICODE - only english--notepad
+
+
+MULTICAST --
+1 FILE UNDERGO DIFFERENT TRANSFORMATIONS AND FINALLY TO DIFFERENT DESTINATIONS
+1 file to different o/p
+
+
+
+
+RAW FILES--
+
+
+
+
+CONDITIONAL SPLIT --
+EX: all US data should go to EXCEL
+    all UK data should go to ff
+cond 1 in 1 file
+cond 2 in another 
+default in another
+char mapping is done for spell/upper/lower case
+derived column is done for any trimming issues during cond split
+
+you can also set ff/excel destination
+drag/drop excel destination--
+from ff to excel ---error(unicode data)--use data conversion(change every thing to DT_WSTRNG)
+NOW YOU CAN SEND IT TO EXCEL
+ 
+ 
+
+
+COPY COLUMN --
+
+
+DERIEVED COLUMN--
+you can make EXPRESSIONS
+EX: MALE M
+    FEMALE F
+if M Mr.
+if F Ms.
+
+condition? action1: action2
+GENDER=="M"? Mr.name:Ms.name
+
+
+
+you can merge or split the data 
+EX: FIRST NAME , LAST NAME
+
+LOOKUP TRANSFORMATION
+
+INPUT COMPARE REFERENCE
+SOURCE(TEXT/OLEDB/EXCELL....) MATCHED ROWS----goes to SUCCESS DESTINATION
+SOURCE                        UNMATCHED ROWS(CASE/SPELL/SPACE...)  ANOTHER DESTINATIONS---ERROR OUTPUT
+                                                                                          YOU CAN SET ignore IF YOU DONT WANT
+                                                                                          SET another destination for unmatched data
+first take a source 
+drag and drop lookup transformation
+goto CONNECTION 
+set a connection OLEDB/EXCEL....
+select a column
+data type should match
+so use data conversion
+sp_help table name ---gives information about the data type and size
+select a destination and set it for matched and unmatched/error data
+
+
+full cache
+--default --get the reference table into localhost where the ssis is running
+          --if the reference table is high 
+          --time takes for the cashes to be loaded--and this caches should be compared to the source
+partial cache mode
+          --portion of necessary data will be cached and compared with the source
+
+
+--lookup is a step wise operation
+--compare each step
+
+
+tech term--cr(change request)
+          
+error may occur--you should not stop the whole table transformation          
+           ignore failure--
+           redirect table(red pipe) to unmatched o/p or error o/p
+cause of error--may be size of the data/
+              --truncation error
+              --ex: char(10), destination char(7)  
+              --most probably use red pipe 
+              --send this errors to other destination tables
+
+
+FUZZY LOOKUP
+
+--CONSIDER SMALL MISTAKES
+--MATCH PERCENTAGE SHOULD BE CONSIDERED
+--FUZZY means Not nearly matching
+
+
+FUZZY GROUPING
+
+--looks for DUPLICATE
+--% OF DATA MATCH BETWEEN THE ROWS--and get  grouped
+--USED FOR CHECKING THE CARDS ISSUING FOR THE SAME PERSON
+EX: AADHAR, SSN
+
+groups according to the duplicacy
+it uses KEY_IN and KEY_OUT data for div the data
+use it along with CONDITIONAL SPLIT in order to send the data to the destination
+choose the rows to display in the destination using CONDITIOANL SPLIT key_in==key_out
+
+
+INTERVIEW QUESTION
+
+how to remove duplicate data ?
+by ssms
+by ssis       use fuzzy grouping
+
+OLEDB COMMAND (USED IN DATA FLOW)    EXEC SQL TASK(USED IN CONTROL FLOW)
+BOTH ARE SAME
+
+
+FULL LOADING                                     INCREMENTAL LOADING 
+
+exec full data when ever ssis package            only transform the data which is newly loaded into the source
+is exec/deployed    
+
+it consumes lots of time                         doesnt take time
+
+                                                 this data is called delta data/partial data
+
+                                                 all dimensional table should be incrementally loaded
+                                                   
+                                                 
+INCREMENTAL LOADING
+
+create an empty table with same columns as source
+REFERENCE AND DESTINATION TABLE SHOULD BE SAME
+UNMATCHED DATA SHOULD BE TAKEN IN TO THE TABLE
+DONT CHECK ANY BOX IN THE DESTINATION TABLE
+
+now add one column in the source
+it compares reference table and it doesnt have a row
+when exec package unmatched data will go to the present destination table
+THIS IS INCREMENTAL LOADING
+--FOR UPDATION
+if a record is updated,
+select OLEDB COMMAND transformation
+PK/FK should be there (MANDATE)
+
+update emp_dest 
+set name=?,
+    salary=?,
+where sid=?
+
+copy and paste this command
+prob: it will update all rows --time taking
+
+NOW OLEDB COMMAND is TIME TAKING 
+so, REPLACE it with EXEC SQL TASK(it is efficient)---HOW
+                                                     send all unmatched data into oledb staging table
+                                                     drag and drop EXEC SQL TASK
+                                                     in that 
+                                                     the unmatched data in the staging table should be transformed to source
+                                                     so use
+                                                     UPDATE 1 TABLE USING ANOTHER TABLE
+                                 update a
+                                 set a.name =b.name, a.salary=b.salary
+                                 from emp_dest as a, emp_stage as b
+                                 on a.sid=b.sid
+                                 go
+                                 /*delete the data in the table*/
+                                 truncate TABLE emp_stage
+                                 go
+                                                     COPY AND PASTE THIS IN SQL TASK
+
+                                                     
+SOME TIMES YOU NEED TO CAPTURE THE DELETIONS ALSO IN DWH
+HOW CAN YOU DO IT?
+
+
+SLOWLY CHANGING DIMENSION
+
+some data doesnot change until the life time EX: name, gender...... THIS IS CALLED TYPE 0 DATA
+     data may be over written EX: Country, salary.......THIS IS CALLED TYPE 1 data
+     old and new data may be captured-------------THIS IS CALLED TYPE 2 data--show the data in the table in a new line---you should have MODIFIED DATE
+changes are treated as ERRORS in TYPE 0 data
+
+
+SURROGATE KEY----VIRTUAL KEY----------used when the id gets duplicated
+                                      NOW THIS ACTS AS PK
+OLTP --DOES NOT HOLDS ANY HISTORY
+OLAP --HAS PREVIOUS/LATEST DATA along with MODIFIED DATE
+
+Same as insertion in fuzzy grouping but easy
+drag and drop OLEDB source--connect to db--choose table
+drag and drop slowly changing dim --only for incremental table
+select destination db, destination table
+set pk to business key
+select fixed attribute(TYPE 0), changing attribute(TYPE 1) and historical attribute(TYPE 2)
+SET current and expired option
+ok
+YOU WILL SEE SELF DRAWN ARCHITECTURE 
+RUN
+Now change any data from type 1 and 2 and exec again
+YOU WILL SEE THE UPDATE
+
+FOR ANY ERRORS YOU CAN SEE PROGRESS BAR
+
+
+SCD (SLOWLY CHANGING DIMENSION)--INSERT/UPDATE         BUT NOT DELETE
+
+
+printing is SSIS is not possible
+but you can display the result while debugging
+using script task(c# or vbscript)
+
+
+VARIABLES
+in ssis variables are used to move the data from 1 task to another
+                                                 1 package to another
+
+
+system variables                          user variables
+
+
+package name                               path
+exec time                                  x
+sys name                                   y
+
+ssis---variables
+or 
+right click ---variables
+add variable--variable name--path(if any)--data type
+
+goto EXEC SQL TASK
+COPY AND PASTE A SQL COMMAND 
+RESULT SET: single row/xml..
+click on RESULT SET :name is 0(0 th position is column name) and column name to be mapped
+NOW YOU CANNOT SEE THE ANSWER IF YOU EXEC THE TASK
+
+
+SCRIPT TASK
+
+drag and drop script task
+script task uses C#.NET OR VB.NET
+GOTO C#.NET
+put NAME OF THE VARIABLE
+COPY AND PASTE THE CODE YOU WANT TO DISPLAY DURING DEBUGGING
+Messagebox.show(Dts.Variable("variable_name").value.tostring());
+build
+exec
+
+TIMESTAMP for a folder using VARIABLE
+
+
+variable--folderPath--value(any path   c:\INDIA)
+variable--TimeStamp--expression(folderPath+"\\"+"Google_"+dt_str.50,1252,GETDATE())
+ NOW YOU CAN CREATE A FOLDER WITH TIMESTAMP
+
+
+CHECK IF THE FILE PRESENT IN THE FOLDER OR NOT
+
+
+variable--folder --string--path value(c:employee.exe)
+variable--fileExist--boolean--value(false)
+
+script task
+readonly filepath
+read and write fileExist
+
+
+//declare variable
+
+String x;
+
+x=Dts.Variable
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

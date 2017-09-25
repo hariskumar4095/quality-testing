@@ -1,0 +1,275 @@
+********************************************************************
+                      DATA WARE HOUSE 
+********************************************************************
+BI data from DIFFERENT SOURCES(ORACLE, SAP, .........)
+DIFFERENT DATA(banking/loan/apr/....)---data cleaning(delete the duplicates/staged data)
+input of SSAS is DWH
+?WHAT IS DWH----
+KIMBALL AND INMON------DESIGNED AND MODELED DWH
+DWH---DIFFERENT SUB(banking/loan/insurance/cc.....)
+   ---from DIFFERENT SOURCES
+   ---DATAMART is SUBSET of DWH--nothing but a DB
+   ---CENTRALIZED DATA(SUMMARIZED DATA & HISTORICAL & DATA USED FOR ANALYSIS)
+   ---ORGANISED---CLEANED
+   ---OLTP                                   OLAP system
+       -ONLINE TRANSACTION PROCESSING         -ONLINE ANALYTICAL PROCESSING
+       -basic/daily                           -large 
+       -for transaction purpose               -for analysis
+       -normalized                            -de-normalized(merging tables--increase redundancy)
+       -index not necessory                   -indexes needed
+       -PK/FK needed                          -pk/fk needed
+       -has no redundancy(fast)               -has redundancy(slow)
+       -use joins   (-ve)                     -no joins used
+       -used to design the data               -read the data
+       -end users use this                    -used for only analysts
+       -ddl/dml easy                          -reading is easy
+     ---MIGRATION---from 1 week to 45 days
+ 
+=== BI IS LIKE====
+(daily(OLTP) water into big tank(OLAP--DWH)
+ ssis is a motor(ETL)
+ staging db is where the water is cleaned/temperary
+)
+
+====TOP DOWN APPROACH====inmons
+
+OLTP===>ETL===>DWH----organise the db/folder(eng/telugu/hindi songs)
+
+
+====BOTTOM DOWN APPROACH====kimball
+
+OLTP===>ETL ----->LOAN            ---
+            ----->CC              ---  DWH
+            ----->DC              ---
+            ----->INSURANCE       ---
+
+THIS IS PREFERABLE
+
+
+
+********************************************************************
+
+OLTP TO OLAP
+
+OLTP -----IN INTERNET(amazon.com, icici.com,...)front end ------ERD MODELING
+     -----MASTER(LESS AND BASIC TABLE DATA---HAS PK--get the data may be low)
+         /TRANSACTION TABLE(DETAILED--HAS FK---each person from master has much data from transaction--mostly numeric data) 
+OLTP TO DWH(kimball model of DWH/OLAP) OLAP -----DIMENSIONAL MODELING
+      ----OLTP(MASTER TABLES)===>DIMENSION TABLES(WHEN/WHERE/WHO/HOW--STRING DATA---DIMENSION)
+                             ---used for slicing(filtering)--use where clause/dicing(grouping)--use group by clause for the data
+
+      ----     TRANSACTION TABLES ===> FACT TABLES(NUMERIC/MEASURE/METRIC)---AGGEGATIONS can be made
+                                                                           ex: cost/marks/profit/loss/(here you can make aggregation)      
+                                 
+                                                                        BUT==pid/ph:no/zip.code---(you cannot make aggregation--here this is dim)
+EX --              
+
+
+1000 MILLION USD PROFIT
+
+
+   YEAR      PROFIT
+2013           200 M $
+  SEM 1        100 M $
+    QTR 1      50  M $
+    QTR 2      50  M $
+  SEM 2        100 M $
+    QTR 1      50  M $
+    QTR 2      50  M $
+2014           150 M $
+  SEM 1        80  M $
+    QTR 1      40  M $
+    QTR 2      40  M $
+  SEM 2        60  M $
+    QTR 1      30  M $
+    QTR 2      30  M $
+2015           150 M $
+  SEM 1        80  M $
+    QTR 1      40  M $
+    QTR 2      40  M $
+  SEM 2        60  M $
+    QTR 1      30  M $
+    QTR 2      30  M $
+2016           300 M $
+  SEM 1        100 M $
+    QTR 1      50  M $
+    QTR 2      50  M $
+  SEM 2        200 M $
+    QTR 1      100 M $
+    QTR 2      100 M $
+2017           200 M $
+  SEM 1        100 M $
+    QTR 1      50  M $
+    QTR 2      50  M $
+  SEM 2        100 M $
+    QTR 1      50  M $
+    QTR 2      50  M $
+
+
+DIV DATA INTO YEAR--SEM--QTR--MONTH--WEEK--DAY--HR.......deep into hierarchy---data is stored in this form in OLAP
+DIV DATA INTO CONTINENT--COUNTRY--STATE--CITIES--........(slicing the data)
+----THIS IS CALLED DIMENSIONAL HIERACHIES
+----HIERARCHIES ARE NOT MANDATE BUT RECOMMENDED
+
+
+
+CUBES GIVE MULTI-DIMENSIONAL AGGREGATIONS
+DIMENSIONAL MODELING IS DONE IN SSAS
+MINIMIZE THE QUERY USAGE(otherwise we have to use many table joins and group by)
+
+
+
+HIERARCHIES
+---made from DIM TABLES
+
+
+RAGGED HIERARCHIS    -------
+                     AMWAY BUSINESS 
+
+        HEAD 1             2                   3
+  1      2     3        1    2   3        1    2    3  
+1  2  3 1 2 3 1 2 3  1 2 3 1 2 3 1 2 3 1 2 3 1 2 3 1 2 3
+.........................................................
+
+NEVER ENDING
+
+
+NATURAL HIERARCHIES
+
+YEAR
+   SEM
+      QTR
+         MNTH
+             WEEK
+                 DAY
+                    HOUR
+                        MIN
+
+UN-NATURAL HIERARCHIES
+
+YEAR
+    QTR
+       MNTH
+       
+
+-its our wish of order
+
+
+RAPIDLY CHANGING DIMENSION
+
+ex: temp of city/sensex/inr exchange
+
+
+SLOWLY CHANGING DIMENSIONS
+
+ex: address/ job....
+
+
+CONFORMED DIMENSION
+
+ex:steady data 
+
+
+FULLY ADDITIVE MEASURE/FACT
+
+can be add/sub/avg.... fully
+
+SEMI ADDITIVE MEASURE/FACT
+
+you cannot do aggregation 
+
+ex:
+time   balance
+q1     1000 
+q2     500
+q3     200
+
+what is the balance at the end= 200---it is not aggregation
+
+NON ADDITIVE MEASURE/FACT
+
+no aggregations
+ex: pass marks for a student
+
+DERIEVED MEASURE/FACT
+
+you have to create a formula and make aggregation
+ex: PROFIT=CP-SP
+    INTEREST=PTR/100
+
+TEXUAL MEASURE
+
+text --ex:flag(1,0--they dont have aggregation but used for analysis)
+
+
+TABLE
+
+FACT TABLE
+
+FK   SID
+FK   PID
+PK   CID
+
+SCHEMAS
+********
+?how FACT and DIM are connected
+
+STAR SCHEMA
+
+--DIM directly linked to FACT
+--has DE-NORMALIZED TABLES
+--READING IS FAST 
+
+
+SNOW FLAKE SCHEMA
+
+--DIM indirectly linked to FACT/DIM to DIM
+--has NORMALISED TABLES 
+--READING IS SLOW (because more joins and normalized tables)
+
+
+EX OF TABLES IN AMAZON
+DB Amazon_Ind
+CATEGORY_MASTER
+PRODUCT_MASTER
+...............
+...............
+
+
+step 1    create db
+step 2    create table CATEGORY_MASTER,........
+step 3    insert into it
+step 4    different types of data OLTP TO STAGING DB(in non peak hours)--gets the duplicate data also
+          clean data is req --data should be data because you can make changes if any here
+          data oltp is directly sent to staging db
+          ---now create staging tables(BLANK TABLE --NO PK/FK)
+          create table stageCategoryMaster(pid int not null......)
+          create table stageProductMaster(.......................)
+step 5    go to SSIS
+          (STAGING DB GETS THE DATA THROUGH SSIS)
+          create new proj
+          ssis proj
+          name the proj-----ssis_products--ok
+          go to solution explorer---rename package-----loadTABLENAME
+          CONTROL FLOW-----DATAFLOW TASK---OLEDB source--CONNECT TO SERVER&DB-- CHOOSE TABLE/SQL COMMAND(if you want prefered data)
+                                                         NEW CONNECTION--OLEDB destination--NOW DUPLICATES ARE POSSIBLE
+          
+       
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
+

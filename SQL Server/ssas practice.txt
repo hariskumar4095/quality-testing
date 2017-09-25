@@ -1,0 +1,111 @@
+ssas
+
+
+cubes --data from multiple sources
+      --store data and aggregate values
+      --unified dimensional model(udm)--centralized data--cube(ms sql )
+data mining--algarithms 
+           
+
+
+step 1 --create proj 
+       (new one or imported)
+
+
+step 2 --data sources
+       may have 1 or more
+       from the ms sql and other db
+       .net or oledb connections
+       --security
+       windows or sql server authentication
+       win--os and sql srvr--created in sql server
+          --username       --service acc while installing sql srver
+            and pw   
+step 3 --data source view
+       --logincal view (DSV)
+       --IS MUST because the ssas processes can only see this 
+       --you can create--named calc/new logical tables(named query)/pk/joins
+       
+       --fact and dim table will appear in a scheme
+       --you can do named calculation(CONCATINATION, etc )
+       --you can explore the data of the table
+
+       
+
+
+step 4 cube 
+         MxN RELATIONS BETWEEN THE DATA IN THE TABLE
+         It is a LOGICAL STRUCTURE containing FACT(orange) and Dimension(BLUE) tables interconnected
+         TO CREATE CUBE
+         right click --create new cube--select ds --select dsv--select dim --create hierarchy from dim(drag and drop)
+         build--(checks for errors)
+         deploy--create empty cubes in ss(GO TO PROP AND SELECT THE SERVER INTO WHICH THE DATA SHOULD BE DEPLOYED)
+         process--treansfer data into the cubes--
+         (PROCESS TYPES --process full(if any changes in dwh, it truncates all the values in the db and again create new one)
+                        --process default(it only updates new one)(it is best because of LESS TIME )
+                        --process truncate(every thing will be deleted--no data in the cube db))
+         goto--browse in the cube
+         --drag and drop attributes and dim
+(NOTE: YOU CAN ALSO PERFORM BROWSING USING SSMS QUERIES--BUT, IT TAKES LOT OF JOINS AND LOT OF TIME)
+         --YOU GOT THE DATA
+         (NOW YOU CAN CREATE MDX QUERIES, AND CREATE SSRS REPORTS)
+          ALSO, YOU CAN GIVE THE LINK FROM THE DEPLOYMENT TO THE PRODUCTION WARE HOUSE AND GET THE DATA 
+(NOTE: YOU CAN ALSO BROWSE DATA INTO THE EXCEL SHEET--open excel--data--data from different source--analysis service--you find facts, dim)
+
+          
+
+possible errors while processing
+
+<Batch xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+  <Parallel>
+    <Process xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300">
+      <Object>
+        <DatabaseID>MultidimensionalProject1</DatabaseID>
+        <CubeID>Adventure Works DW2012</CubeID>
+      </Object>
+      <Type>ProcessFull</Type>
+      <WriteBackTableCreation>UseExisting</WriteBackTableCreation>
+    </Process>
+  </Parallel>
+</Batch>
+	Processing Dimension 'Dim Currency' completed.
+		Start time: 7/20/2017 3:54:46 PM; End time: 7/20/2017 3:54:46 PM; Duration: 0:00:00
+	Processing Dimension 'Dim Date' completed.
+		Start time: 7/20/2017 3:54:46 PM; End time: 7/20/2017 3:54:46 PM; Duration: 0:00:00
+		Processing Dimension Attribute '(All)' completed.
+			Start time: 7/20/2017 3:54:46 PM; End time: 7/20/2017 3:54:46 PM; Duration: 0:00:00
+		Processing Dimension Attribute 'Calendar Quarter' completed.
+			Start time: 7/20/2017 3:54:46 PM; End time: 7/20/2017 3:54:46 PM; Duration: 0:00:00
+Errors and Warnings from Response
+	Server: The current operation was cancelled because another operation in the transaction failed.
+	Internal error: The operation terminated unsuccessfully.
+	OLE DB error: OLE DB or ODBC error: Login failed for user 'NT Service\MSSQLServerOLAPService'.; 28000.
+	Errors in the high-level relational engine. A connection could not be made to the data source with the DataSourceID of 'Adventure Works DW2012', Name of 'Adventure Works DW2012'.
+	Errors in the OLAP storage engine: An error occurred while the dimension, with the ID of 'Dim Date', Name of 'Dim Date' was being processed.
+	Errors in the OLAP storage engine: An error occurred while the 'Calendar Quarter' attribute of the 'Dim Date' dimension from the 'MultidimensionalProject1' database was being processed.
+
+      NT Service\MSSQLServerOLAPService
+
+go to 
+
+ssms
+db
+security
+login
+right click--new login
+                      --copy and paste  NT Service\MSSQLServerOLAPService in login name
+                      --go to 
+                              --server role --tik on 'sysadmin'
+
+NOW RUN THE BUILD, PROCESSING AND DEPLOY
+
+
+
+
+
+
+
+
+
+
+

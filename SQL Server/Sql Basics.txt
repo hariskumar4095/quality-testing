@@ -1,0 +1,21 @@
+SQL --- Structured Query Language 
+RDMS -- Relatioanl Datamangement systems Like MySQL , MS Access, Oracle and SQL Server  use SQL as their standard Langauge.
+DDL --Data Definition Language Commands - Create, 
+Alter -- Modifies an existing Object, DROP- Delete Entire Table, a View of a table 
+DML-- Data Manipulation Language- Select, Insert, Update, Delete.
+DCL -- Data Control Language - Grant, Revoke.
+NULL Value - Field appears Blank not even zero
+
+DATA Integrity:
+Entity Integrity -- No duplicate row in table
+Domain Integrity-- Valid Entries in column by Type, Range.
+Referentails Integrity-- Rows Cannot be deleted, Which are used in other tables
+
+SQL System/Group Functions: Count, Max, Min, Avg, Sum, Distinct.
+
+Union : 
+
+A table can have multiple Unique and Foreign Keys, but can have only 1 primary key.
+Unique key values can have null valuses but not primary
+A foreign key can reference a no primary key but foreign key must reference a unique key 
+
